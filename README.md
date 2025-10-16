@@ -77,6 +77,8 @@ wandb login
 
 Dataset Preparation
 
+Dataset used: https://www.kaggle.com/datasets/kmader/food41
+
 The script expects a standard image folder structure where each class has its own subdirectory.
 
 Food_Dataset/
