@@ -1,4 +1,4 @@
-Conditional Diffusion Model for Image Generation
+#Conditional Diffusion Model for Image Generation
 
 This repository contains the code for training a class-conditional diffusion model for image generation, built using PyTorch. The project uses a powerful U-Net architecture with self-attention, based on the model from the DiffPIR/deepinv library, and is configured for training on a custom image dataset (e.g., Food-15).
 
