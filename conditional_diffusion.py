@@ -1,5 +1,3 @@
-# conditional_diffusion_v4.0.py
-
 import os
 import math
 import sys
@@ -226,11 +224,26 @@ if __name__ == "__main__":
 
     args = parse_args()
 
+    # --- THIS IS THE NEW BLOCK FOR API KEY LOGIN ---
+    # The person running the code should paste their API key below.
+    WANDB_API_KEY = "PASTE_YOUR_API_KEY_HERE"
+
+    if WANDB_API_KEY == "PASTE_YOUR_API_KEY_HERE" or WANDB_API_KEY == "":
+        print("W&B login skipped. Please paste your API key into the script to enable logging.")
+        os.environ["WANDB_MODE"] = "disabled" # Disable wandb if no key is provided
+    else:
+        try:
+            wandb.login(key=WANDB_API_KEY)
+        except Exception as e:
+            print(f"Could not log in to W&B: {e}. Disabling logging.")
+            os.environ["WANDB_MODE"] = "disabled"
+
     wandb.init(
-        project="conditional-diffusion-food", # Name of your project
-        name=f"run_{args.img_size}px_lr{args.lr}", # A specific name for this run
-        config=vars(args) # Save all hyperparameters
+        project="conditional-diffusion-food",
+        name=f"run_{args.img_size}px_lr{args.lr}_bs{args.batch_size * args.accum_steps}",
+        config=vars(args)
     )
+    # --- END OF THE NEW BLOCK ---
 
     torch.manual_seed(args.seed); np.random.seed(args.seed)
 
